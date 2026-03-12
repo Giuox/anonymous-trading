@@ -100,6 +100,10 @@
 
   nav ul a:hover { color: var(--accent); }
 
+  nav ul a.nav-link-active {
+    color: var(--accent);
+  }
+
   .nav-cta {
     font-family: 'Space Mono', monospace;
     font-size: 11px;
@@ -444,24 +448,21 @@
 
   .hero-candles {
     position: absolute;
-    left: 36px;
-    right: 36px;
-    bottom: 10px;
-    height: 120px;
+    inset: 24px 28px 18px;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     pointer-events: none;
     z-index: 1;
-    opacity: 0.65;
+    opacity: 0.4;
   }
 
   .candle-stick {
-    width: 10px;
-    height: calc(var(--h, 56) * 1px);
+    width: 8px;
+    height: calc(var(--h, 90) * 1px);
     position: relative;
     border-radius: 2px;
-    animation: candleFloat var(--speed, 3.8s) ease-in-out infinite;
+    animation: candleFloat var(--speed, 4.8s) ease-in-out infinite;
     animation-delay: var(--delay, 0s);
     filter: saturate(1.05);
   }
@@ -473,9 +474,9 @@
     top: -16px;
     transform: translateX(-50%);
     width: 1px;
-    height: 16px;
+    height: 22px;
     background: #3a3a3a;
-    opacity: 0.9;
+    opacity: 0.7;
   }
 
   .candle-stick::after {
@@ -485,24 +486,24 @@
     bottom: -14px;
     transform: translateX(-50%);
     width: 1px;
-    height: 14px;
+    height: 18px;
     background: #2c2c2c;
-    opacity: 0.9;
+    opacity: 0.65;
   }
 
   .candle-stick.up {
-    background: linear-gradient(180deg, #d5ff5e, #88c600);
-    box-shadow: 0 0 14px rgba(200,255,0,0.14);
+    background: linear-gradient(180deg, #ceff49, #7ea71a);
+    box-shadow: 0 0 14px rgba(200,255,0,0.1);
   }
 
   .candle-stick.down {
-    background: linear-gradient(180deg, #ff9a74, #ff3c00);
-    box-shadow: 0 0 14px rgba(255,60,0,0.13);
+    background: linear-gradient(180deg, #3b3b3b, #161616);
+    box-shadow: 0 0 12px rgba(0,0,0,0.3);
   }
 
   @keyframes candleFloat {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+    50% { transform: translateY(-12px); }
   }
 
   /* TRUSTED BY */
@@ -1664,6 +1665,83 @@
     border-color: var(--accent);
   }
 
+  .summary-trust {
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .summary-trust span {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    border: 1px solid #2a2a2a;
+    padding: 6px 8px;
+  }
+
+  .eta-note {
+    margin-top: 12px;
+    color: #6f6f6f;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .checkout-micro {
+    margin-top: 14px;
+    color: #6f6f6f;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .floating-cartbar {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    z-index: 450;
+    border: 1px solid #2a2a2a;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 12px;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .floating-cartbar.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .floating-cartbar-meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8a8a8a;
+  }
+
+  .floating-cartbar-total {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .floating-cartbar .btn-primary {
+    padding: 12px 18px;
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
   .cart-bump {
     animation: cartBump 0.35s ease;
   }
@@ -1693,18 +1771,15 @@
     .hero-visual { display: none; }
     .hero-candles {
       display: flex;
-      left: 18px;
-      right: 18px;
-      bottom: 0;
-      height: 82px;
-      opacity: 0.34;
+      inset: 20px 14px 8px;
+      opacity: 0.28;
     }
     .candle-stick {
-      width: 7px;
-      animation-duration: 4.6s;
+      width: 6px;
+      animation-duration: 5.2s;
     }
-    .candle-stick::before { height: 10px; top: -10px; }
-    .candle-stick::after { height: 9px; bottom: -9px; }
+    .candle-stick::before { height: 12px; top: -12px; }
+    .candle-stick::after { height: 10px; bottom: -10px; }
     .trusted { padding: 40px 32px; }
     .firm-logos { gap: 0; }
     .firm-logo { padding: 10px 16px; font-size: 9px; }
@@ -1736,6 +1811,8 @@
     .checkout { padding: 80px 32px; }
     .checkout-layout { grid-template-columns: 1fr; }
     .checkout-form-grid { grid-template-columns: 1fr; }
+    .floating-cartbar { display: flex; }
+    body { padding-bottom: 88px; }
     footer { padding: 60px 32px 40px; }
     .footer-top { grid-template-columns: 1fr 1fr; }
     .hero-stats { flex-wrap: wrap; gap: 24px; }
@@ -1781,6 +1858,20 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-candles" aria-hidden="true">
+    <span class="candle-stick up" style="--h:86;--delay:-0.2s;--speed:4.7s"></span>
+    <span class="candle-stick down" style="--h:120;--delay:-1.1s;--speed:5.1s"></span>
+    <span class="candle-stick up" style="--h:94;--delay:-2.3s;--speed:4.5s"></span>
+    <span class="candle-stick down" style="--h:138;--delay:-0.7s;--speed:5.4s"></span>
+    <span class="candle-stick up" style="--h:108;--delay:-1.8s;--speed:4.8s"></span>
+    <span class="candle-stick down" style="--h:84;--delay:-2.8s;--speed:4.9s"></span>
+    <span class="candle-stick up" style="--h:128;--delay:-1.4s;--speed:5.2s"></span>
+    <span class="candle-stick down" style="--h:100;--delay:-0.4s;--speed:4.7s"></span>
+    <span class="candle-stick up" style="--h:144;--delay:-2.1s;--speed:5.5s"></span>
+    <span class="candle-stick down" style="--h:92;--delay:-0.9s;--speed:4.6s"></span>
+    <span class="candle-stick up" style="--h:116;--delay:-2.6s;--speed:5.0s"></span>
+    <span class="candle-stick down" style="--h:134;--delay:-1.5s;--speed:5.3s"></span>
+  </div>
   <div class="hero-content reveal">
     <div class="hero-label">Elite Prop Trading Awards</div>
     <h1>YOU <em>PASSED.</em><br>NOW OWN IT.</h1>
@@ -1828,17 +1919,6 @@
         <div class="plaque-date">2025 · ANONYMOUS</div>
       </div>
     </div>
-  </div>
-  <div class="hero-candles" aria-hidden="true">
-    <span class="candle-stick up" style="--h:50;--delay:-0.2s;--speed:3.6s"></span>
-    <span class="candle-stick down" style="--h:72;--delay:-1.1s;--speed:4.1s"></span>
-    <span class="candle-stick up" style="--h:58;--delay:-2.3s;--speed:3.4s"></span>
-    <span class="candle-stick down" style="--h:84;--delay:-0.7s;--speed:4.4s"></span>
-    <span class="candle-stick up" style="--h:66;--delay:-1.8s;--speed:3.8s"></span>
-    <span class="candle-stick down" style="--h:54;--delay:-2.8s;--speed:3.9s"></span>
-    <span class="candle-stick up" style="--h:76;--delay:-1.4s;--speed:4.2s"></span>
-    <span class="candle-stick down" style="--h:62;--delay:-0.4s;--speed:3.7s"></span>
-    <span class="candle-stick up" style="--h:88;--delay:-2.1s;--speed:4.5s"></span>
   </div>
 </section>
 
@@ -2185,9 +2265,15 @@
       <div class="summary-line"><span>Subtotal</span><span id="cartSubtotal">€0.00</span></div>
       <div class="summary-line"><span>Shipping</span><span id="cartShipping">€0.00</span></div>
       <div class="summary-line total"><span>Total</span><span id="cartTotal">€0.00</span></div>
+      <p class="eta-note" id="cartEta">Estimated delivery: calculate after adding products.</p>
       <div class="cart-actions">
         <a href="#checkout" class="btn-primary is-disabled" id="goCheckoutBtn">Proceed to Checkout →</a>
         <button class="btn-ghost" id="clearCartBtn" type="button">Clear Cart</button>
+      </div>
+      <div class="summary-trust">
+        <span>Secure Checkout</span>
+        <span>Tracked Shipping</span>
+        <span>Quality Guarantee</span>
       </div>
     </aside>
   </div>
@@ -2247,6 +2333,12 @@
       </div>
       <div class="summary-line"><span>Shipping</span><span id="checkoutShipping">€0.00</span></div>
       <div class="summary-line total"><span>Total</span><span id="checkoutTotal">€0.00</span></div>
+      <div class="summary-trust">
+        <span>Visa</span>
+        <span>Mastercard</span>
+        <span>PayPal Ready</span>
+      </div>
+      <p class="checkout-micro">Demo checkout flow active. Payment gateway and backend order storage can be connected in phase 2.</p>
     </aside>
   </div>
 </section>
@@ -2481,6 +2573,14 @@
   <a href="#cart">Open cart now →</a>
 </div>
 
+<div class="floating-cartbar" id="floatingCartbar">
+  <div>
+    <div class="floating-cartbar-meta">Cart Total</div>
+    <div class="floating-cartbar-total" id="floatingCartTotal">€0.00</div>
+  </div>
+  <a href="#checkout" class="btn-primary is-disabled" id="floatingCheckoutBtn">Checkout →</a>
+</div>
+
 <script>
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
@@ -2542,6 +2642,10 @@
   const clearCartBtn = document.getElementById('clearCartBtn');
   const cartToast = document.getElementById('cartToast');
   const cartToastText = document.getElementById('cartToastText');
+  const cartEtaEl = document.getElementById('cartEta');
+  const floatingCartbar = document.getElementById('floatingCartbar');
+  const floatingCartTotal = document.getElementById('floatingCartTotal');
+  const floatingCheckoutBtn = document.getElementById('floatingCheckoutBtn');
   const checkoutItemsEl = document.getElementById('checkoutItems');
   const checkoutShippingEl = document.getElementById('checkoutShipping');
   const checkoutTotalEl = document.getElementById('checkoutTotal');
@@ -2557,6 +2661,7 @@
     if (subtotal <= 0) return 0;
     return method === 'express' ? 14.9 : (subtotal >= 120 ? 0 : 7.9);
   };
+  const getDeliveryEta = (method = 'standard') => (method === 'express' ? '1-2 business days' : '2-4 business days');
 
   let toastTimer = null;
   const showCartToast = (message) => {
@@ -2586,6 +2691,11 @@
 
     checkoutShippingEl.textContent = formatPrice(shipping);
     checkoutTotalEl.textContent = formatPrice(total);
+    if (cartEtaEl) {
+      cartEtaEl.textContent = entries.length === 0
+        ? 'Estimated delivery: calculate after adding products.'
+        : `Estimated delivery: ${getDeliveryEta(method)} · Tracked shipping included.`;
+    }
   };
 
   const renderCart = () => {
@@ -2605,9 +2715,16 @@
     if (cartSubtotalEl) cartSubtotalEl.textContent = formatPrice(subtotal);
     if (cartShippingEl) cartShippingEl.textContent = formatPrice(shipping);
     if (cartTotalEl) cartTotalEl.textContent = formatPrice(total);
+    if (floatingCartTotal) floatingCartTotal.textContent = formatPrice(total);
 
     if (goCheckoutBtn) {
       goCheckoutBtn.classList.toggle('is-disabled', count === 0);
+    }
+    if (floatingCheckoutBtn) {
+      floatingCheckoutBtn.classList.toggle('is-disabled', count === 0);
+    }
+    if (floatingCartbar) {
+      floatingCartbar.classList.toggle('show', count > 0);
     }
 
     if (entries.length === 0) {
@@ -2710,12 +2827,33 @@
         return;
       }
       const orderId = `AT-${Math.floor(100000 + Math.random() * 900000)}`;
-      checkoutStatus.textContent = `Demo order confirmed (${orderId}). Connect this step to payment and backend APIs.`;
+      checkoutStatus.textContent = `Demo order confirmed (${orderId}). Confirmation email and tracking flow can be connected to backend APIs.`;
       checkoutForm.reset();
       Object.keys(cartState).forEach((id) => delete cartState[id]);
       renderCart();
     });
   }
+
+  // Highlight active ecommerce section in navbar
+  const sectionIds = ['products', 'product-pages', 'cart', 'checkout'];
+  const navMap = new Map();
+  sectionIds.forEach((id) => {
+    const link = document.querySelector(`nav ul a[href="#${id}"]`);
+    if (link) navMap.set(id, link);
+  });
+  const setActiveNav = (id) => {
+    navMap.forEach((link, key) => link.classList.toggle('nav-link-active', key === id));
+  };
+  const navObserver = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter((entry) => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (visible) setActiveNav(visible.target.id);
+  }, { threshold: 0.35 });
+  sectionIds.forEach((id) => {
+    const section = document.getElementById(id);
+    if (section) navObserver.observe(section);
+  });
 
   renderCart();
 </script>
