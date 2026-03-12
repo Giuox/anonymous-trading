@@ -120,9 +120,43 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    border-radius: 0;
   }
 
   .nav-cta:hover { background: #d4ff20; transform: translateY(-1px); }
+
+  .nav-cta-icon {
+    width: 44px;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    position: relative;
+  }
+
+  .nav-cart-svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--black);
+    stroke-width: 1.8;
+    fill: none;
+  }
+
+  .nav-cta-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: #ff3c00;
+    color: #fff;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    line-height: 18px;
+    text-align: center;
+    padding: 0 4px;
+    border: 1px solid rgba(0,0,0,0.4);
+  }
 
   /* TICKER */
   .ticker {
@@ -448,62 +482,75 @@
 
   .hero-candles {
     position: absolute;
-    inset: 24px 28px 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    inset: 0;
     pointer-events: none;
     z-index: 1;
-    opacity: 0.4;
+    opacity: 0.5;
+    overflow: hidden;
   }
 
   .candle-stick {
-    width: 8px;
-    height: calc(var(--h, 90) * 1px);
-    position: relative;
-    border-radius: 2px;
-    animation: candleFloat var(--speed, 4.8s) ease-in-out infinite;
+    position: absolute;
+    left: calc(var(--x, 50) * 1%);
+    bottom: calc(var(--y, 10) * 1%);
+    width: 6px;
+    height: calc(var(--h, 26) * 1px);
+    border-radius: 1px;
+    transform: translateX(-50%);
+    animation: candleDrift var(--speed, 12s) linear infinite;
     animation-delay: var(--delay, 0s);
-    filter: saturate(1.05);
+    will-change: transform, opacity;
   }
 
   .candle-stick::before {
     content: '';
     position: absolute;
     left: 50%;
-    top: -16px;
+    top: -12px;
     transform: translateX(-50%);
     width: 1px;
-    height: 22px;
-    background: #3a3a3a;
-    opacity: 0.7;
+    height: 12px;
+    background: rgba(62, 62, 62, 0.7);
+    opacity: 0.9;
   }
 
   .candle-stick::after {
     content: '';
     position: absolute;
     left: 50%;
-    bottom: -14px;
+    bottom: -10px;
     transform: translateX(-50%);
     width: 1px;
-    height: 18px;
-    background: #2c2c2c;
-    opacity: 0.65;
+    height: 10px;
+    background: rgba(45, 45, 45, 0.66);
+    opacity: 0.85;
   }
 
   .candle-stick.up {
-    background: linear-gradient(180deg, #ceff49, #7ea71a);
-    box-shadow: 0 0 14px rgba(200,255,0,0.1);
+    background: linear-gradient(180deg, rgba(155, 227, 170, 0.85), rgba(113, 190, 138, 0.72));
+    box-shadow: 0 0 10px rgba(155, 227, 170, 0.14);
   }
 
   .candle-stick.down {
-    background: linear-gradient(180deg, #3b3b3b, #161616);
-    box-shadow: 0 0 12px rgba(0,0,0,0.3);
+    background: linear-gradient(180deg, rgba(246, 168, 168, 0.82), rgba(232, 136, 136, 0.65));
+    box-shadow: 0 0 10px rgba(244, 160, 160, 0.12);
   }
 
-  @keyframes candleFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
+  @keyframes candleDrift {
+    0% {
+      transform: translate(-50%, 26px);
+      opacity: 0;
+    }
+    12% {
+      opacity: 0.62;
+    }
+    72% {
+      opacity: 0.42;
+    }
+    100% {
+      transform: translate(-50%, -190px);
+      opacity: 0;
+    }
   }
 
   /* TRUSTED BY */
@@ -1767,19 +1814,26 @@
   @media (max-width: 1024px) {
     nav { padding: 16px 24px; }
     nav ul { display: none; }
+    nav .logo {
+      font-size: 24px;
+      letter-spacing: 3px;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .nav-cta { flex-shrink: 0; }
+    .nav-cta-icon { width: 42px; height: 38px; }
     .hero { grid-template-columns: 1fr; padding: 60px 32px; min-height: auto; }
     .hero-visual { display: none; }
     .hero-candles {
-      display: flex;
-      inset: 20px 14px 8px;
-      opacity: 0.28;
+      inset: 6px 0 0;
+      opacity: 0.36;
     }
     .candle-stick {
-      width: 6px;
-      animation-duration: 5.2s;
+      width: 5px;
+      animation-duration: 10.5s;
     }
-    .candle-stick::before { height: 12px; top: -12px; }
-    .candle-stick::after { height: 10px; bottom: -10px; }
+    .candle-stick::before { height: 9px; top: -9px; }
+    .candle-stick::after { height: 7px; bottom: -7px; }
     .trusted { padding: 40px 32px; }
     .firm-logos { gap: 0; }
     .firm-logo { padding: 10px 16px; font-size: 9px; }
@@ -1832,7 +1886,14 @@
     <li><a href="#why">About</a></li>
     <li><a href="#hall">Hall of Fame</a></li>
   </ul>
-  <a href="#cart" class="nav-cta">Cart (<span id="cartCount">0</span>) →</a>
+  <a href="#cart" class="nav-cta nav-cta-icon" aria-label="Open cart">
+    <svg class="nav-cart-svg" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="9" cy="20" r="1.6"></circle>
+      <circle cx="18" cy="20" r="1.6"></circle>
+      <path d="M2 3h3l2.2 11.2a1 1 0 0 0 1 .8h9.8a1 1 0 0 0 1-.8L21 7H7.1"></path>
+    </svg>
+    <span class="nav-cta-count" id="cartCount">0</span>
+  </a>
 </nav>
 
 <!-- TICKER -->
@@ -1859,18 +1920,19 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-candles" aria-hidden="true">
-    <span class="candle-stick up" style="--h:86;--delay:-0.2s;--speed:4.7s"></span>
-    <span class="candle-stick down" style="--h:120;--delay:-1.1s;--speed:5.1s"></span>
-    <span class="candle-stick up" style="--h:94;--delay:-2.3s;--speed:4.5s"></span>
-    <span class="candle-stick down" style="--h:138;--delay:-0.7s;--speed:5.4s"></span>
-    <span class="candle-stick up" style="--h:108;--delay:-1.8s;--speed:4.8s"></span>
-    <span class="candle-stick down" style="--h:84;--delay:-2.8s;--speed:4.9s"></span>
-    <span class="candle-stick up" style="--h:128;--delay:-1.4s;--speed:5.2s"></span>
-    <span class="candle-stick down" style="--h:100;--delay:-0.4s;--speed:4.7s"></span>
-    <span class="candle-stick up" style="--h:144;--delay:-2.1s;--speed:5.5s"></span>
-    <span class="candle-stick down" style="--h:92;--delay:-0.9s;--speed:4.6s"></span>
-    <span class="candle-stick up" style="--h:116;--delay:-2.6s;--speed:5.0s"></span>
-    <span class="candle-stick down" style="--h:134;--delay:-1.5s;--speed:5.3s"></span>
+    <span class="candle-stick up" style="--x:8;--y:10;--h:20;--delay:-0.8s;--speed:11.2s"></span>
+    <span class="candle-stick down" style="--x:14;--y:14;--h:26;--delay:-5.1s;--speed:12.8s"></span>
+    <span class="candle-stick up" style="--x:21;--y:12;--h:23;--delay:-2.2s;--speed:10.7s"></span>
+    <span class="candle-stick down" style="--x:29;--y:16;--h:31;--delay:-8.3s;--speed:13.4s"></span>
+    <span class="candle-stick up" style="--x:35;--y:11;--h:19;--delay:-3.6s;--speed:10.4s"></span>
+    <span class="candle-stick down" style="--x:42;--y:15;--h:28;--delay:-6.9s;--speed:12.1s"></span>
+    <span class="candle-stick up" style="--x:49;--y:10;--h:22;--delay:-1.4s;--speed:11.6s"></span>
+    <span class="candle-stick down" style="--x:57;--y:13;--h:24;--delay:-7.5s;--speed:12.9s"></span>
+    <span class="candle-stick up" style="--x:63;--y:9;--h:18;--delay:-4.2s;--speed:10.2s"></span>
+    <span class="candle-stick down" style="--x:70;--y:16;--h:30;--delay:-9.6s;--speed:13.7s"></span>
+    <span class="candle-stick up" style="--x:77;--y:12;--h:25;--delay:-2.8s;--speed:11.1s"></span>
+    <span class="candle-stick down" style="--x:84;--y:14;--h:27;--delay:-6.1s;--speed:12.6s"></span>
+    <span class="candle-stick up" style="--x:91;--y:11;--h:21;--delay:-3.3s;--speed:10.9s"></span>
   </div>
   <div class="hero-content reveal">
     <div class="hero-label">Elite Prop Trading Awards</div>
